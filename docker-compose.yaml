@@ -1,13 +1,13 @@
 services:
-  prusacamera:
-    container_name: prusacamera
-    image: linuxserver/ffmpeg
+  prusa-camera:
+    container_name: prusa-camera
+    image: linuxserver/ffmpeg:arm32v7-5.1.2
     restart: always
     entrypoint: /bin/bash
     command: /upload.sh
-    environment:
-      RTSP_URL: "rtsp://192.168.88.88:8554/streaming"
-      FINGERPRINT: "<fingerprint-from-prusa-connect>"
-      TOKEN: "<token-from-prusa-connect>"
+    env_file:
+      - .env
+    devices:
+      - /dev/video0:/dev/video0
     volumes:
       - ./upload.sh:/upload.sh

@@ -4,19 +4,21 @@
 : "${HTTP_URL:=https://webcam.connect.prusa3d.com/c/snapshot}"
 : "${DELAY_SECONDS:=10}"
 : "${LONG_DELAY_SECONDS:=60}"
+: "${VIDEO_DEVICE:=/dev/video0}"
 
 while true; do
-    # Grab a frame from the RTSP stream using FFmpeg (timeout at 5s)
+    # Grab a frame from the webcam using FFmpeg
     ffmpeg \
-        -timeout 5000000 \
         -loglevel quiet \
         -stats \
         -y \
-        -rtsp_transport tcp \
-        -i "$RTSP_URL" \
-        -f image2 \
+        -f v4l2 \
+        -framerate 1 \
+        -video_size 1280x720 \
+        -i "$VIDEO_DEVICE" \
         -vframes 1 \
         -pix_fmt yuvj420p \
+        -vf "transpose=2,transpose=2" \
         output.jpg
 
     # If no error, upload it.
@@ -35,7 +37,7 @@ while true; do
         DELAY=$DELAY_SECONDS
     else
         echo "FFmpeg returned an error. Retrying after ${LONG_DELAY_SECONDS}s..."
-        
+
         # Set delay to the longer value
         DELAY=$LONG_DELAY_SECONDS
     fi

@@ -8,7 +8,7 @@ EOF
 
 dockerd-rootless-setuptool.sh install
 
-sudo cp ./prusacamera.service /etc/systemd/system/prusacamera.service
+sudo cp ./prusa-camera.service /etc/systemd/system/prusa-camera.service
 sudo systemctl daemon-reload
-sudo systemctl enable prusacamera
-sudo systemctl start prusacamera
+sudo systemctl enable prusa-camera
+sudo systemctl start prusa-camera

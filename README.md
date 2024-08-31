@@ -1,4 +1,4 @@
-# prusacamera
+# prusa-camera
 
 ## Installation
 1. Flash Image to SD
