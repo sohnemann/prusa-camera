@@ -8,4 +8,7 @@ EOF
 
 dockerd-rootless-setuptool.sh install
 
-sudo apt-get install docker-compose -y
+sudo cp ./prusacamera.service /etc/systemd/system/prusacamera.service
+sudo systemctl daemon-reload
+sudo systemctl enable prusacamera
+sudo systemctl start prusacamera
