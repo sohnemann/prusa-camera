@@ -1,4 +1,5 @@
 # prusa-camera
+Allows for the operation of a usb camera with Prusa Connect.
 
 ## Installation
 1. Flash Image to SD
